@@ -1,0 +1,29 @@
+body {
+    padding: 0;
+    margin: 0;
+    background: #f2f6e9;
+
+}
+
+.description {
+	left: 50%;
+	position: absolute;
+	top: 25%;
+	transform: translate(-50%, -55%);
+	text-align: center;
+}
+
+.description h1 {
+	color: #4594c9;
+}
+.description p {
+	color: rgb(15, 15, 15);
+	font-size: 1.3rem;
+	line-height: 1.5;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}

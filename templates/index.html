@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        font-family: 'Roboto', sans-serif;
+        }
+
+        h1, h2{
+            color:#3f51b5;
+        }
+
+        a{
+          color: #2c87f0;
+        }
+    </style>
+	<body>
+
+        <br>
+        <br>
+        <br>
+        <div class="w3-panel" style="text-align: center;">
+            <h1><b>Welcome to the College Explorer!</b></h1>
+          </div>
+        <div class="w3-container">
+            <div class="w3-display-container">
+              <img src="../static/college.jpg" style="margin-left: auto;margin-right: auto;width:80%;display: block;" >
+              <div class="w3-display-topmiddle w3-container w3-padding-32">
+                <h3 style="text-align: center;">Input a college you're interested in and<br> see five similar schools you should also explore</h3>
+                <form action='/results' method = 'post'>
+                    <h4 style="text-align: center;">
+                      <input type='text' name = 'name' id='inst'/>
+                    <input type='submit' value='Submit'/></h4>
+                  </form>
+                </div>
+            </div>
+        </div>
+        <!-- First Grid -->
+<div class="w3-row-padding w3-padding-24 w3-container">
+    <div class="w3-content">
+      <div >
+        <h2 id='about' >About</h2>
+        <hr style="width:50px;border:3px solid #3f51b5" class="w3-round">
+        <h5 >Motivation</h5>
+        <p class="w3-text-grey">As a high school distance running coach in the Bay Area, I frequently discuss college plans with the juniors and seniors. Since many have only visited a CSU or UC campus, they are unaware of all the other academic opportunities that span the United States. We try to visit all types of colleges throughout the state when we travel for running invitationals but I would like to expose the student-athletes to even more.</p>
+        <h5 >Design</h5>
+        <p class="w3-text-grey">The College Recommender uses 2018-2019 data from <a href="https://nces.ed.gov/ipeds/use-the-data" rel="noopener noreferrer" target="_blank">the National Center for Education Statistics</a>. After scrubbing the data and placing it into a dataframe, I settled on various metrics to compare, which I deem relevant and understandable for a high schooler. The Recommender uses <a href="https://scikit-learn.org/stable/modules/metrics.html#cosine-similarity" rel="noopener noreferrer" target="_blank">cosine similarity</a> to evaluate schools and provides the top five "closest" schools in order of similarity. </p>
+        <h5 >Hope</h5>
+        <p class="w3-text-grey">I hope the student-athletes use this Recommender, stumble upon a school they might have never heard of, and be compelled to explore even more! By diversifying the schools they are considering, the student-athletes can more confidently decide which environment is ultimately the best fit for them.</p>
+  
+       
+      </div>
+    </div>
+  </div>
+  
+          <!-- Second Grid -->
+    <div class="w3-row-padding w3-container">
+    <div class="w3-content">
+        <div >
+        <h2 id='metrics' >Metrics</h2>
+        <h6>For more indepth explanations, please visit the National Center for Education Statistics. <br>
+          When NCES did not have data for a certain metric, I used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html" rel="noopener noreferrer" target="_blank">k-Nearest Neighbors</a> with "k" equal to five to impute values, which allowed for cosine similarity analysis. 
+          At a high level, this used the five schools/("neighbors") that were most similar for the other metrics and then calculated a value for the unknown.</h6>
+        <hr style="width:50px;border:3px solid #3f51b5" class="w3-round">
+        <h5 >Average Net Price</h5>
+        <p class="w3-text-grey">Average net price for full-time, first-time degree/certificate-seeking undergraduates who were awarded grant or scholarship aid from federal, state or local governments, or the institution. Other sources of grant aid are excluded. Aid awarded anytime during the full aid year is included</p>
+        <h5 >Percent Admitted</h5>
+        <p class="w3-text-grey">Percent admitted total equals number of admissions-total(ADMSSN) divided by the total applicants(APPCLN) </p>
+        <h5 >Percent Women</h5>
+        <p class="w3-text-grey">Percent of student body that are women in the fall of the academic year. This variable is derived from the enrollment component that is collected in the winter and spring surveys. </p>
+        <h5 >Institution Size Cat</h5>
+        <p class="w3-text-grey">Institution size category based on total students enrolled for credit.</p>
+        <h5 >SAT Math 25th</h5>
+        <p class="w3-text-grey">The 25th percentile for first-time, degree/certificate-seeking undergraduate students.</p>
+        <h5 >SAT Verbal 25th</h5>
+        <p class="w3-text-grey">The 25th percentile for first-time, degree/certificate-seeking undergraduate students.</p>
+        </div>
+    </div>
+    </div>
+
+
+    </body>   
+
+
+
+       
+{% endblock %}

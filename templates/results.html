@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: #797359;
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.styled-table thead tr {
+    background-color: #3f51b5;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #3f51b5;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #3f51b5;
+}
+
+.styled-table td a{
+  color: #2c87f0;
+}
+
+h6{
+  text-align: center;
+}
+
+</style>
+<br>
+<br>
+<br>
+<h2 class='center'>Your Selected College: {{name}}</h2>
+
+<table class="styled-table">
+    <tr class="active-row">
+    {% for col in df.columns %}
+    <th><center>{{col}}</center></th>
+    {% endfor %}
+    </tr>
+    {% for _, row in df.iloc[:1].iterrows() %}
+    <tr>
+      {% for i in range(10) %}
+        {% if i <9%}
+          <td><center>{{row[i]}}</center></td>
+        {%else%}
+        <td><center><a href="{{row[i]}}" rel="noopener noreferrer" target="_blank">{{row[i]}}</a></center></td>
+        {% endif%}
+      {% endfor %}
+      <tr>
+      {% endfor %}
+  </table>
+  
+<br>
+
+<h2 class='center'>Because you're interested in {{name}}, you might enjoy exploring:</h2>
+ 
+<table class="styled-table">
+  <tr class="active-row">
+  {% for col in df.columns %}
+  <th><center>{{col}}</center></th>
+  {% endfor %}
+  </tr>
+  {% for _, row in df.iloc[1:6].iterrows() %}
+  <tr>
+    {% for i in range(10) %}
+      {% if i <9%}
+        <td><center>{{row[i]}}</center></td>
+      {%else%}
+      <td><center><a href="{{row[i]}}" rel="noopener noreferrer" target="_blank">{{row[i]}}</a></center></td>
+      {% endif%}
+    {% endfor %}
+    <tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<h2 class='center'>Modify the relative importance of the metrics for a customized recommendation:</h2>
+<h6>0 means you are not concerned with how similar a recommendation is to your selected college's metric. <br>
+    1 means the metric has the same importance as the original calculation. All metrics have a value of 1 as a default. <br>
+    5 means you want this metric to be highly similar to your selected college's metric. <br>
+    10 means you want this metric to be incredibly similar to your selected college's metric. 
+</h6>
+<br>
+<form action='/custom' method = 'post'>
+  <table class='center'>
+    <tr>
+    <td>
+      <p>
+        <label for='inst'>School: </label>
+        <input type='text' name = 'name' id='inst' value= '{{name}}'  >
+      </p>
+    </td>
+    <td><label for="Avg Net Price" class="label">Avg Net Price:</label></td>
+    <td>
+    <select name="avg_net_price" id="anp" class="required">
+       <option value=1>-Default 1-</option>
+       <option value=0>0</option>
+       <option value=1>1</option>
+       <option value=5>5</option>
+       <option value=10>10</option>
+      </select>
+    </td> 
+    <td><label for="Percent Admitted" class="label">Percent Admitted:</label></td>
+    <td>
+    <select name="percent_admitted" id="pa" class="required">
+       <option value="1">-Default 1-</option>
+       <option value=0>0</option>
+       <option value=1>1</option>
+       <option value=5>5</option>
+       <option value=10>10</option>
+    </select>
+    </td>
+    <td><label for="Percent Women" class="label">Percent Women:</label></td>
+    <td>
+    <select name="percent_women" id="pw" class="required">
+       <option value="1">-Default 1-</option>
+       <option value=0>0</option>
+       <option value=1>1</option>
+       <option value=5>5</option>
+       <option value=10>10</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td><label for="Institution Size" class="label">Institution Size:</label></td>
+      <td>
+      <select name="inst_size" id="is" class="required">
+         <option value="1">-Default 1-</option>
+         <option value=0>0</option>
+         <option value=1>1</option>
+         <option value=5>5</option>
+         <option value=10>10</option>
+        </select>
+      </td>
+      <td><label for="SAT Math 25th" class="label">SAT Math 25th:</label></td>
+      <td>
+      <select name="sat_math" id="sm" class="required">
+         <option value="1">-Default 1-</option>
+         <option value=0>0</option>
+         <option value=1>1</option>
+         <option value=5>5</option>
+         <option value=10>10</option>
+        </select>
+      </td>
+      <td><label for="SAT Verbal 25th" class="label">SAT Verbal 25th:</label></td>
+      <td>
+      <select name="sat_verbal" id="sv" class="required">
+         <option value="1">-Default 1-</option>
+         <option value=0>0</option>
+         <option value=1>1</option>
+         <option value=5>5</option>
+         <option value=10>10</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      <input type='submit' value='Submit'/>
+    </td>
+    </tr>
+  </table>
+</form>
+
+
+
+
+{% endblock %}

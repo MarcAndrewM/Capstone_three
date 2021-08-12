@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.fixed{
+  position: fixed; 
+  width: 100%"
+}
+
+h2{
+            color:#3f51b5;
+        }
+</style>
+</head>
+<body>
+<br>
+<br>
+<br>
+
+<h2>&nbsp; Colleges and Universities</h2>
+<p>&nbsp; &nbsp; &nbsp; Below are over 1,000 four year colleges and universities in the United States. Search by state, find a school of interest, and then copy and paste the name into the college explorer.</p>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by state.." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:30%;">State</th>
+    <th style="width:30%;">City</th>
+    <th style="width:50%;">School</th>
+  </tr>
+  {% for _, row in df.iloc[1:].iterrows() %}
+  <tr>
+    {% for entry in row %}
+    <td>{{ entry }}</td>
+    {% endfor %}
+    <tr>
+    {% endfor %}
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+{% endblock %}
